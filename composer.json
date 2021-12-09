@@ -1,0 +1,16 @@
+{
+    "name": "multimonos/wpcli",
+    "description": "adds useful wpcli commands for wordpress development",
+    "authors": [
+        {
+            "name": "Craig Hopgood",
+            "email": "searaig@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Multimonos\\": "lib/Multimonos"
+        }
+    }
+}
