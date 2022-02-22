@@ -28,7 +28,7 @@ class BlockCommands
      * @param $_
      * @param $opts
      *
-     * @when after_wp_load
+     * @when before_wp_load
      * @subcommand list
      */
     public function list( $_, $opts ) {
@@ -40,7 +40,7 @@ class BlockCommands
      * @param $_
      * @param $opts
      *
-     * @when after_wp_load
+     * @when before_wp_load
      * @subcommand create
      */
     public function create( $_, $opts ) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Glance\Blocks\Block;
+namespace Glance\Blocks\%%classname%%;
 
 use Glance\Blocks\Block;
 
@@ -15,10 +15,10 @@ class %%classname%% extends Block
             'mode'       => 'edit',
             'name'       => '%%block_name%%',
             'title'      => '%%block_title%%',
-            'post_types' => [],
+            'post_types' => ['page'],
             'multiple'   => false,
             'category'   => 'formatting',
-            'keywords'   => [],
+            'keywords'   => [%%block_keywords%%],
             ];
     }
 }

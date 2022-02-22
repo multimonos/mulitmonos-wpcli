@@ -33,9 +33,9 @@ class CreateCommand
         $dirs = [
             "{$classpath}",
             "{$classpath}/acf-json",
-            "{$classpath}/js",
-            "{$classpath}/scss",
-            "{$classpath}/img"
+//            "{$classpath}/js",
+//            "{$classpath}/scss",
+//            "{$classpath}/img"
         ];
 
         array_map( function( $path ) {
@@ -48,7 +48,7 @@ class CreateCommand
                 }
             }
 
-            \WP_CLI::success( "Created directory ".str_replace(ABSPATH, '', $path) );
+            \WP_CLI::success( "Created directory " . str_replace( ABSPATH, '', $path ) );
 
         }, $dirs );
 
@@ -61,10 +61,11 @@ class CreateCommand
             [
                 'path'    => "{$classpath}/{$classname}.php",
                 'content' => $this->replace( 'BlockClass.tpl', [
-                    'classname'   => $classname,
-                    'slug'        => $slug,
-                    'block_name'  => 'mod_' . str_replace( '-', '', $slug ),
-                    'block_title' => str_replace( '-', ' ', $slug ),
+                    'classname'      => $classname,
+                    'slug'           => $slug,
+                    'block_name'     => 'mod_' . str_replace( '-', '', $slug ),
+                    'block_title'    => ucwords( str_replace( '-', ' ', $slug ) ),
+                    'block_keywords' => $this->keywordsFromSlug( $slug ),
                 ] ),
             ],
         ];
@@ -78,9 +79,15 @@ class CreateCommand
                 \WP_CLI::halt( 1 );
             }
 
-            \WP_CLI::success( "Created directory ".str_replace(ABSPATH, '', $file['path']) );
+            \WP_CLI::success( "Created directory " . str_replace( ABSPATH, '', $file['path'] ) );
 
         }, $files );
+
+        // class preview
+        if ( file_exists( "{$classpath}/{$classname}.php" ) ) {
+            $preview = file_get_contents( "{$classpath}/{$classname}.php" );
+            \WP_CLI::success( "Preview of {$classname}\n\n$preview ..." );
+        }
 
         \WP_CLI::success( 'Done' );
     }
@@ -121,4 +128,11 @@ class CreateCommand
         return $str;
     }
 
+    protected function keywordsFromSlug( $slug ) {
+        $words = explode( '-', $slug );
+        $words = array_filter( $words, fn( $word ) => $word !== 'block' );
+        $str = "'" . implode( "', '", $words ) . "'";
+
+        return $str;
+    }
 }
