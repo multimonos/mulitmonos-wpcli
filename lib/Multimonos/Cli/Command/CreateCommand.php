@@ -48,7 +48,7 @@ class CreateCommand
                 }
             }
 
-            \WP_CLI::success( "Created directory {$path}" );
+            \WP_CLI::success( "Created directory ".str_replace(ABSPATH, '', $path) );
 
         }, $dirs );
 
@@ -69,9 +69,6 @@ class CreateCommand
             ],
         ];
 
-        echo "\nfiles:";
-        print_r( $files );
-        exit;
         array_map( function( $file ) {
 
             $rs = $this->createFile( $file['path'], $file['content'] );
@@ -81,7 +78,7 @@ class CreateCommand
                 \WP_CLI::halt( 1 );
             }
 
-            \WP_CLI::success( "Created directory {$file['path']}" );
+            \WP_CLI::success( "Created directory ".str_replace(ABSPATH, '', $file['path']) );
 
         }, $files );
 
@@ -121,10 +118,7 @@ class CreateCommand
             $str = str_replace( '%%' . $name . '%%', $value, $str );
         }
 
-        echo $str;
-        exit;
         return $str;
-
     }
 
 }

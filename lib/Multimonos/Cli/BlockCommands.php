@@ -44,10 +44,6 @@ class BlockCommands
      * @subcommand create
      */
     public function create( $_, $opts ) {
-        echo "\nparams:";
-        print_r( $_ );
-        echo "\noptions:";
-        print_r( $opts );
         $slug = $_[0];
         $cmd = new CreateCommand( );
         $cmd->run($slug);
