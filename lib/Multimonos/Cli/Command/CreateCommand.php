@@ -33,9 +33,9 @@ class CreateCommand
         $dirs = [
             "{$classpath}",
             "{$classpath}/acf-json",
-//            "{$classpath}/js",
-//            "{$classpath}/scss",
-//            "{$classpath}/img"
+            //            "{$classpath}/js",
+            //            "{$classpath}/scss",
+            //            "{$classpath}/img"
         ];
 
         array_map( function( $path ) {
@@ -63,9 +63,9 @@ class CreateCommand
                 'content' => $this->replace( 'BlockClass.tpl', [
                     'classname'      => $classname,
                     'slug'           => $slug,
-                    'block_name'     => 'mod_' . str_replace( '-', '', $slug ),
-                    'block_title'    => ucwords( str_replace( '-', ' ', $slug ) ),
-                    'block_keywords' => $this->keywordsFromSlug( $slug ),
+                    'block_name'     => $this->blockName( $slug ),
+                    'block_title'    => $this->blockTitle( $slug ),
+                    'block_keywords' => $this->blockKeywords( $slug ),
                 ] ),
             ],
         ];
@@ -128,11 +128,27 @@ class CreateCommand
         return $str;
     }
 
-    protected function keywordsFromSlug( $slug ) {
+    protected function blockKeywords( $slug ) {
         $words = explode( '-', $slug );
         $words = array_filter( $words, fn( $word ) => $word !== 'block' );
         $str = "'" . implode( "', '", $words ) . "'";
 
         return $str;
     }
+
+    protected function blockName( $slug ) {
+        $name = $slug;
+        $name = 'mod_' . str_replace( '-', '', $name);
+        $name = str_replace( 'block', '', $name);
+        return $name;
+    }
+
+    protected function blockTitle( $slug ) {
+        $title=$slug;
+        $title = str_replace( '-', ' ', $title );
+        $title = str_replace( 'block', '', $title );
+        $title = ucwords( $title );
+        return $title;
+    }
+
 }
