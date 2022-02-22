@@ -132,15 +132,14 @@ class CreateCommand
         $words = explode( '-', $slug );
         $words = array_filter( $words, fn( $word ) => $word !== 'block' );
         $str = "'" . implode( "', '", $words ) . "'";
-
-        return $str;
+        return trim($str);
     }
 
     protected function blockName( $slug ) {
         $name = $slug;
         $name = 'mod_' . str_replace( '-', '', $name);
         $name = str_replace( 'block', '', $name);
-        return $name;
+        return trim($name);
     }
 
     protected function blockTitle( $slug ) {
@@ -148,7 +147,7 @@ class CreateCommand
         $title = str_replace( '-', ' ', $title );
         $title = str_replace( 'block', '', $title );
         $title = ucwords( $title );
-        return $title;
+        return trim($title);
     }
 
 }
