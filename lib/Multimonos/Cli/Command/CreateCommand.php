@@ -56,11 +56,11 @@ class CreateCommand
         $files = [
             [
                 'path'    => "{$classpath}/{$slug}.twig",
-                'content' => "{# block : {$slug} #}"
+                'content' => $this->replace('block.twig.tpl', [ 'classname'=> $classname, 'slug' => $slug, ])
             ],
             [
                 'path'    => "{$classpath}/{$classname}.php",
-                'content' => $this->replace( 'BlockClass.tpl', [
+                'content' => $this->replace( 'Block.php.tpl', [
                     'classname'      => $classname,
                     'slug'           => $slug,
                     'block_name'     => $this->blockName( $slug ),
