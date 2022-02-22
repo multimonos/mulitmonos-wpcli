@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Multimonos\Commands;
+namespace Multimonos\Cli\Command;
 
 
-class SyncAcfJsonToBlockFolders
+class SyncAcfJsonToBlockFoldersCommand
 {
-    public function __construct( $baseclass ) {
+    public function run($baseclass) {
         $json_dir = get_template_directory() . '/acf-json';
 
         $this->assert_baseclass_declared( $baseclass );

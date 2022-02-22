@@ -15,7 +15,7 @@
 
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-    require_once __DIR__.'/vendor/autoload.php';
+    require_once __DIR__ . '/vendor/autoload.php';
 
-    \WP_CLI::add_command('block', Multimonos\BlockCommands::class);
+    \WP_CLI::add_command( 'block', Multimonos\Cli\BlockCommands::class );
 }
