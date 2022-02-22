@@ -11,16 +11,26 @@ class ListCommand
 
         \WP_CLI::success( "Blocks directory {$blocks_dir}" );
 
-        $classes = glob( $blocks_dir . '/**', GLOB_ONLYDIR );
+        $paths = glob( $blocks_dir . '/**', GLOB_ONLYDIR );
 
-        \WP_CLI::success( "Found " . count( $classes ) . " blocks" );
+        \WP_CLI::success( "Found " . count( $paths ) . " blocks" );
 
-        if ( count( $classes ) ) {
-            array_map( function( $dir ) {
-                $dirname = basename( $dir );
+        if ( count( $paths ) ) {
+            $max = 0;
 
-                \WP_CLI::line( "- $dirname" );
-            }, $classes );
+            $max = array_reduce( $paths, function( $max, $path ) {
+                $len = strlen( basename( $path ) );
+
+                return $max > $len ? $max : $len;
+            }, 0 );
+
+            array_map( function( $path ) use ( $max ) {
+                $classname = str_pad( basename( $path ), $max, ' ' );
+                $path = str_replace( ABSPATH, '', $path );
+
+                \WP_CLI::line( "- {$classname} --> {$path}" );
+
+            }, $paths );
         }
     }
 
