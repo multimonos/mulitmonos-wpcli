@@ -137,8 +137,9 @@ class CreateCommand
 
     protected function blockName( $slug ) {
         $name = $slug;
-        $name = 'mod_' . str_replace( '-', '', $name);
+        $name =  str_replace( '-', '', $name);
         $name = str_replace( 'block', '', $name);
+        $name = 'blk_'.$name;
         return trim($name);
     }
 
