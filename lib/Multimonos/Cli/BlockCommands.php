@@ -12,6 +12,8 @@ use Multimonos\Cli\Command\SyncAcfJsonToBlockFoldersCommand;
 class BlockCommands
 {
     /**
+     * Copies the existing acf-json files for each block from theme to block class folder
+     *
      * @param $_
      * @param $opts
      *
@@ -25,6 +27,8 @@ class BlockCommands
     }
 
     /**
+     * Lists existing blocks
+     *
      * @param $_
      * @param $opts
      *
@@ -37,6 +41,22 @@ class BlockCommands
     }
 
     /**
+     * Creates a block
+     *
+     * ## OPTIONS
+     *
+     * <slug>
+     * : Id for the block - if slug is slug-example then classname will be SlugExampleBlock )
+     *
+     * [--post-types=<types>...]
+     * : csv of types that are granted usage for block
+     * ---
+     * default: page
+     * options:
+     *   - page
+     *   - post
+     * ---
+     *
      * @param $_
      * @param $opts
      *
@@ -45,7 +65,7 @@ class BlockCommands
      */
     public function create( $_, $opts ) {
         $slug = $_[0];
-        $cmd = new CreateCommand( );
-        $cmd->run($slug);
+        $cmd = new CreateCommand();
+        $cmd->run( $slug, $opts );
     }
 }

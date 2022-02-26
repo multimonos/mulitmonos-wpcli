@@ -15,7 +15,7 @@ class %%classname%% extends Block
             'mode'       => 'edit',
             'name'       => '%%block_name%%',
             'title'      => '%%block_title%%',
-            'post_types' => ['page'],
+            'post_types' => [%%post_types%%],
             'multiple'   => false,
             'category'   => 'formatting',
             'keywords'   => [%%block_keywords%%],

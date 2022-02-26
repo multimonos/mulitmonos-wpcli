@@ -6,7 +6,7 @@ use Multimonos\Cli\CliHelper;
 
 class CreateCommand
 {
-    public function run( $slug ) {
+    public function run( $slug, $options = [] ) {
 
         $blocks_dir = CliHelper::get_blocks_dir();
 
@@ -56,13 +56,17 @@ class CreateCommand
         $files = [
             [
                 'path'    => "{$classpath}/{$slug}.twig",
-                'content' => $this->replace('block.twig.tpl', [ 'classname'=> $classname, 'slug' => $slug, ])
+                'content' => $this->replace( 'block.twig.tpl', [
+                    'classname' => $classname,
+                    'slug'      => $slug,
+                ] )
             ],
             [
                 'path'    => "{$classpath}/{$classname}.php",
                 'content' => $this->replace( 'Block.php.tpl', [
                     'classname'      => $classname,
                     'slug'           => $slug,
+                    'post_types'     => isset( $options['post-types'] ) ? explode( ',', $options['post-types'] ) : ['page'],
                     'block_name'     => $this->blockName( $slug ),
                     'block_title'    => $this->blockTitle( $slug ),
                     'block_keywords' => $this->blockKeywords( $slug ),
@@ -122,7 +126,11 @@ class CreateCommand
         $str = $this->readTemplate( $template_name );
 
         foreach ( $params as $name => $value ) {
-            $str = str_replace( '%%' . $name . '%%', $value, $str );
+            if ( is_array( $value ) ) {
+                $str = str_replace( '%%' . $name . '%%', $this->toCsv($value), $str );
+            } else {
+                $str = str_replace( '%%' . $name . '%%', $value, $str );
+            }
         }
 
         return $str;
@@ -131,24 +139,28 @@ class CreateCommand
     protected function blockKeywords( $slug ) {
         $words = explode( '-', $slug );
         $words = array_filter( $words, fn( $word ) => $word !== 'block' );
-        $str = "'" . implode( "', '", $words ) . "'";
-        return trim($str);
+        $str = $this->toCsv($words);
+        return trim( $str );
+    }
+
+    protected function toCsv( array $list ) {
+        return "'" . implode( "', '", $list ) . "'";
     }
 
     protected function blockName( $slug ) {
         $name = $slug;
-        $name =  str_replace( '-', '', $name);
-        $name = str_replace( 'block', '', $name);
-        $name = 'blk_'.$name;
-        return trim($name);
+        $name = str_replace( '-', '', $name );
+        $name = str_replace( 'block', '', $name );
+        $name = 'blk_' . $name;
+        return trim( $name );
     }
 
     protected function blockTitle( $slug ) {
-        $title=$slug;
+        $title = $slug;
         $title = str_replace( '-', ' ', $title );
         $title = str_replace( 'block', '', $title );
         $title = ucwords( $title );
-        return trim($title);
+        return trim( $title );
     }
 
 }
