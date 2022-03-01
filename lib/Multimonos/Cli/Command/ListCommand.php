@@ -21,6 +21,7 @@ class ListCommand
             array_map( function( $path ) use ( $max ) {
                 $classname = str_pad( basename( $path ), $max, ' ' );
 
+                $path = str_replace(ABSPATH, '', $path);
                 \WP_CLI::line( "- {$classname} -> {$path}" );
 
             }, $paths );
