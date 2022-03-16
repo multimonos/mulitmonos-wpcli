@@ -70,6 +70,7 @@ class CreateCommand
                     'block_name'     => $this->blockName( $slug ),
                     'block_title'    => $this->blockTitle( $slug ),
                     'block_keywords' => $this->blockKeywords( $slug ),
+                    'block_category' => $options['category'],
                 ] ),
             ],
         ];

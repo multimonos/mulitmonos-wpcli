@@ -17,7 +17,7 @@ class %%classname%% extends Block
             'title'      => '%%block_title%%',
             'post_types' => [%%post_types%%],
             'multiple'   => false,
-            'category'   => 'formatting',
+            'category'   => '%%block_category%%',
             'keywords'   => [%%block_keywords%%],
             ];
     }

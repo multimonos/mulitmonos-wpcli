@@ -57,6 +57,11 @@ class BlockCommands
      *   - post
      * ---
      *
+     * [--category=<category>]
+     * : category for the block
+     * ---
+     * default: formatting
+     * ---
      * @param $_
      * @param $opts
      *
