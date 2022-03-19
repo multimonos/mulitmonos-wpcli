@@ -62,6 +62,12 @@ class CreateCommand
                 ] )
             ],
             [
+                'path'    => "{$classpath}/{$slug}.scss",
+                'content' => $this->replace( 'block.scss.tpl', [
+                    'slug'      => $slug,
+                ] )
+            ],
+            [
                 'path'    => "{$classpath}/{$classname}.php",
                 'content' => $this->replace( 'Block.php.tpl', [
                     'classname'      => $classname,
@@ -73,6 +79,7 @@ class CreateCommand
                     'block_category' => $options['category'],
                 ] ),
             ],
+
         ];
 
         array_map( function( $file ) {
