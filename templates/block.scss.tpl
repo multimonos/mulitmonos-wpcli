@@ -4,6 +4,9 @@
     // ---
     &.block {
 
+    // child elements
+    .block {
+
         &__title {
         }
 
