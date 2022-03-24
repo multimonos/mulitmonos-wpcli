@@ -7,7 +7,9 @@ use Glance\Blocks\Block;
 class %%classname%% extends Block
 {
     public function template(): string {
-        return __DIR__ . '/%%slug%%.twig';
+        // requires the lib/Glance/Blocks folder to be in twig path
+        // ie, Timber::$dirname = array('templates', 'views', 'lib/Glance/Blocks');
+        return  '%%classname%%/%%slug%%.twig';
     }
 
     public function get_acf_block_config(): array {
