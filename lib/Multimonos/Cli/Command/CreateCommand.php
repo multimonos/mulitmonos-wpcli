@@ -32,7 +32,7 @@ class CreateCommand
         // create folder structure
         $dirs = [
             "{$classpath}",
-            "{$classpath}/acf-json",
+//            "{$classpath}/acf-json",
             //            "{$classpath}/js",
             //            "{$classpath}/scss",
             //            "{$classpath}/img"
@@ -61,12 +61,12 @@ class CreateCommand
                     'slug'      => $slug,
                 ] )
             ],
-            [
-                'path'    => "{$classpath}/{$slug}.scss",
-                'content' => $this->replace( 'block.scss.tpl', [
-                    'slug'      => $slug,
-                ] )
-            ],
+//            [
+//                'path'    => "{$classpath}/{$slug}.scss",
+//                'content' => $this->replace( 'block.scss.tpl', [
+//                    'slug'      => $slug,
+//                ] )
+//            ],
             [
                 'path'    => "{$classpath}/{$classname}.php",
                 'content' => $this->replace( 'Block.php.tpl', [
